@@ -1,26 +1,24 @@
-CPP = g++
+CXX = clang++
 CPP_FILE = main.cpp
 TEST_SH = ./test.sh
-CFLAGS = -O2 -std=c++11 -Wall
-PROGRAM = ./prog
+# With -DDEBUG , dump will remain on the code.
+CFLAGS = -O2 -Wall -std=c++11 -Wall -DDEBUG
+PROGRAM = ./a.out
 TESTCASE = case
 
 all: $(PROGRAM)
 
 $(PROGRAM):$(CPP_FILE)
-	$(CPP) $(CFLAGS) $(CPP_FILE) -o $(PROGRAM)
+	$(CXX) $(CFLAGS) $(CPP_FILE) -o $(PROGRAM)
 
 PHONY: check-syntax test watch
 
 check-syntax:
-	echo $(CPP) -fsyntax-only $(CFLAGS) $(CHK_SOURCES)
-	$(CPP) -fsyntax-only $(CFLAGS) $(CHK_SOURCES)
+	$(CXX) -fsyntax-only -fno-color-diagnostics $(CFLAGS) $(CHK_SOURCES)
 
 test:$(PROGRAM)
 	$(TEST_SH) $(PROGRAM)
 
-
-# in the future,add test case support.
 watch:
 	make test
 	while inotifywait -q -r -e modify $(CPP_FILE) $(TESTCASE);true;do clear;make test;done
