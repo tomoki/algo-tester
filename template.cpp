@@ -30,6 +30,7 @@
 using namespace std;
 
 #define int long long
+using z = long long;
 
 #define all(c) c.begin(), c.end()
 #define repeat(i, n) for (int i = 0; i < static_cast<int>(n); i++)
@@ -42,9 +43,14 @@ using namespace std;
 #endif
 
 typedef complex<double> point;
-
+template<typename T,std::size_t N>
+struct _v_traits {using type = std::vector<typename _v_traits<T,N-1>::type>;};
+template<typename T>
+struct _v_traits<T,1> {using type = std::vector<T>;};
+template<typename T,std::size_t N=1>
+using vec = typename _v_traits<T,N>::type;
 template <typename T>
-ostream &operator<<(ostream &os, const vector<T> &vec) {
+ostream &operator<<(ostream &os, const vec<T> &vec) {
     os << "[";
     for (const auto &v : vec) {
         os << v << ",";
