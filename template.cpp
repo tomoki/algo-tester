@@ -1,4 +1,6 @@
-// compile in C++11. use -std=c++11.
+// #ifdef DEBUG
+// #define _GLIBCXX_DEBUG
+// #endif
 #include <iostream>
 #include <iomanip>
 #include <vector>
@@ -30,27 +32,38 @@
 using namespace std;
 
 #define int long long
-using z = long long;
 
 #define all(c) c.begin(), c.end()
 #define repeat(i, n) for (int i = 0; i < static_cast<int>(n); i++)
 #define debug(x) #x << "=" << (x)
 
 #ifdef DEBUG
+#define _GLIBCXX_DEBUG
 #define dump(x) std::cerr << debug(x) << " (L:" << __LINE__ << ")" << std::endl
 #else
 #define dump(x) 
 #endif
 
 typedef complex<double> point;
+
 template<typename T,std::size_t N>
 struct _v_traits {using type = std::vector<typename _v_traits<T,N-1>::type>;};
 template<typename T>
 struct _v_traits<T,1> {using type = std::vector<T>;};
 template<typename T,std::size_t N=1>
 using vec = typename _v_traits<T,N>::type;
+
+// template<typename T,std::size_t N,typename Size,typename... Sizes>
+// vec<T,N> make_vector(T init,Size size,Sizes... sizes){
+//     return vec<T,N>(size,make_vector(init,sizes...));
+// }
+// template<typename T,typename Size,typename... Sizes>
+// vec<T,1> make_vector(T init,Size size,Sizes... sizes){
+//     return vec<T,1>(size,init);
+// }
+
 template <typename T>
-ostream &operator<<(ostream &os, const vec<T> &vec) {
+ostream &operator<<(ostream &os, const vector<T> &vec) {
     os << "[";
     for (const auto &v : vec) {
         os << v << ",";
