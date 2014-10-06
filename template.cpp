@@ -53,15 +53,6 @@ struct _v_traits<T,1> {using type = std::vector<T>;};
 template<typename T,std::size_t N=1>
 using vec = typename _v_traits<T,N>::type;
 
-// template<typename T,std::size_t N,typename Size,typename... Sizes>
-// vec<T,N> make_vector(T init,Size size,Sizes... sizes){
-//     return vec<T,N>(size,make_vector(init,sizes...));
-// }
-// template<typename T,typename Size,typename... Sizes>
-// vec<T,1> make_vector(T init,Size size,Sizes... sizes){
-//     return vec<T,1>(size,init);
-// }
-
 template <typename T>
 ostream &operator<<(ostream &os, const vector<T> &vec) {
     os << "[";
